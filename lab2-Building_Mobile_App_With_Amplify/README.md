@@ -19,7 +19,7 @@ The following frameworks and package managers are needed to be able to complete 
 - NodeJS version 10.x and above (https://nodejs.org/en/download/)
 - npm version 6.x and above (https://www.npmjs.com/get-npm)
 
-# Step 1: Install the Amplify CLI
+## Step 1: Install the Amplify CLI
 
 1. Run the following command within terminal / powershell:
 
@@ -65,11 +65,11 @@ This would update/create the AWS Profile in your local machine
 Successfully set up the new user.
 ```
 
-# Step 2: Create a new Amplify project
+## Step 2: Create a new Amplify project
 
 1. 
 
-# Step 3: Configure Amplify 
+## Step 3: Configure Amplify 
 1.  Run the following command in your project’s root folder:
 
 ``` bash
