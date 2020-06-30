@@ -1,6 +1,6 @@
 **Last Updated:** April 2019
 
-# Building a Call Center with Amazon Connect
+# Creating your first call center using Amazon Connect and configuring LEX
 
 ## Overview
 
