@@ -15,7 +15,8 @@ Please ensure you follow the instructions regarding the Regions to deploy your A
 ## The Labs
 
 * [Lab 1](./lab1-Building_Chat_Bots_With_Lex/README.md) - Building your first Amazon Lex chatbot
-* [Lab 2](./lab2-Building_Mobile_App_With_Amplify/README.md) - Building your Mobile App with Amplify
+* [Lab 2](./lab2-Building_Mobile_App_With_Amplify/README.md) - Building your Mobile App with Amplify and configuring LEX
+* [Lab 3 - Optional](./lab3-Building_Amazon_Connect_Contact_Center_Environment) - Creating your first call center using Amazon Connect and configuring LEX
 
 ## Questions and Contact
 
@@ -27,6 +28,7 @@ To clean up all the resources created in this workshop:
 
 * Delete the AWS Amplify project within the AWS Amplify Console
 * Delete the Amazon Lex bot in the Amazon Lex Console 
+* Delete the Amazon Connect environment if Lab 3 was completed
 
 ## License
 
