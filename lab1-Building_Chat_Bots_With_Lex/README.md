@@ -13,13 +13,13 @@ Amazon Lex is a service for building conversational interfaces into any applicat
 
 # Step 1: Create the bot
 
-1. Log in to the [AWS console](https://console.aws.amazon.com/lex/home) and navigate to the Amazon Lex service
-2. **Please ensure you have selected North Virginia as the region in the top right (Amazon Connect is not available in all regions yet)**
+1. Log in to the [AWS console](https://console.aws.amazon.com/lex/home?region=us-east-1) and navigate to the Amazon Lex service
+2. Please ensure you have selected North Virginia as the region in the top right
 3. If you have never created a bot, click &quot;Get Started&quot;
 4. Choose &quot;Custom bot&quot;, which will display a dialog asking you to defined your bot
 5. Our bot name will be &quot;PersonalBanker&quot;
 6. Choose your preferred output voice
-7. Session timeout should be 5 minute
+7. Session timeout should be 5 minutes and sentiment analysis should be set to "No"
 8. Choose &quot;No&quot; to the Children&#39;s Online Privacy Protection Act (COPPA) question
 
 The form should now look as follows, noting that we&#39;re going to accept the default IAM role.
@@ -106,15 +106,15 @@ In the Lambda function we have hard-coded an Array of data but in a real world e
 2. Click on the orange &#39;Create a function&#39; link under the &#39;Getting Started&#39; section
 3. On the &quot;Create function&quot; page, click the &quot;Author from scratch&quot; button
 4. Let&#39;s give our function the name of &quot;myPersonalBanker&quot; and optionally provide a description
-5. Choose Node.js 8.10 as the Runtime
-6. We will &quot;Create new role from template – give it a Lex-style role name (such as &quot;LexRole&quot;) and select &quot;Test Harness permissions&quot; as the policy template.
+5. Choose Node.js 10.x or higher as the Runtime
+6. We will &quot;Create new role from AWS policy templates – give it a Lex-style role name (such as &quot;LexRole&quot;) and select &quot;Test Harness permissions&quot; as the policy template.
 
 
 ![Author new Lambda function](images/Picture11.png)
 
 1. Hit &quot;Create function&quot; on the bottom right and you&#39;ll be take to the &quot;Configuration&quot; window.  We are not adding any additional triggers, nor are we using Lambda Layers, so scroll down to the &quot;Function code&quot; section
 2. Open the lambda function code you will find [here](./myPersonalBanker_v1.js) (myPersonalBanker\_v1.js). Copy and paste the code into the inline editor – make sure that you overwrite any template code that is already in the code box
-3. Scroll down to the &#39;&quot;Execution role&quot; section and ensure that the role you created previously is selected in the &quot;Existing role&quot; drop-down – if not then please select it
+3. Navigate to the permissions tab and scroll down to the &#39;&quot;Execution role&quot; section and ensure that the role you created previously is selected in the &quot;Existing role&quot; drop-down – if not then please select it
 4.  Leave the rest unchanged, then hit the orange &quot;Save&quot; button at the top of the screen
 
 # Step 3: Link the bot with the Lambda function
@@ -134,8 +134,7 @@ To do this, we go back to the [Lex Console](https://console.aws.amazon.com/lex).
 ![Add Lambda permission](images/Picture13.png)
 
 5. Click &quot;Save intent&quot;
-6. Repeat the above steps **3, 4 and 5** for intents &quot;GetLoanDetail&quot; and &quot;GetLoanProducts&quot;
-7. Click &quot;Build&quot; and then click &quot;Build&quot; again on the confirmation screen.
+6. Click &quot;Build&quot; and then click &quot;Build&quot; again on the confirmation screen.
 
 # Step 4: Running and debugging the bot
 
