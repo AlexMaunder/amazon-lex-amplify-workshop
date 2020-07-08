@@ -24,10 +24,10 @@ The following frameworks and package managers are needed to be able to complete 
 1. Run the following command within terminal / powershell window:
 
 ``` bash
-sudo npm install -g @aws-amplify/cli
+npm install -g @aws-amplify/cli
 ```
 
-* please note that Amplify CLI will need to be installed globally on your machine hence ``` sudo ``` is needed
+* please note that Amplify CLI will need to be installed globally on your machine hence ``` sudo ``` is needed at the front of the command on mac / linux
 
 2. Configure Amplify by running the following command:
 
@@ -191,22 +191,187 @@ npm install aws-amplify aws-amplify-react
 ```
 
 The aws-amplify package is the main library for working with Amplify in your apps. 
-
 The aws-amplify-react package includes React specific UI components we’ll use as we build the app.
-
-2. Next, we need to configure Amplify on the client so that we can use it to interact with our backend services.
-
-Open **App/index.js** and add the following code below the last import:
-
-``` javascript
-import Amplify from "aws-amplify";
-import awsExports from "./aws-exports";
-Amplify.configure(awsExports);
-```
-
-And that’s all it takes to configure Amplify. As you add or remove categories and make updates to your backend configuration using the Amplify CLI, the configuration in aws-exports.js will update automatically.
 
 Now that our React app is set up and Amplify is initialized, we’re ready to add LEX in the next step.
 
 ## Step 5: Set up Amazon LEX within the App
-1.  Within the AWS Console navigate to 
+1. Firstly we will need to set up an unauthenticated user so that we can call LEX from within our App. Run the following within the Amplify CLI:
+
+```bash
+amplify add auth
+```
+
+2. Choose ```default configuration``` within the CLI options, followed by ```username``` and ```No, I am done```
+
+3. Within you text editor open ```parameters.json``` found within the ``amplify -> backend -> auth``` subfolder and update the ```allowUnauthenticatedIdentities``` to be ```true``` and save the file.
+
+4. Run the following to send the authentication update we made to the Amplify cloud environment:
+
+```bash
+amplify push
+```
+
+4. Open the AWS Console navigate to the IAM Service. Within the ```Access Management -> Roles``` section search for a role beginning with ```amplify-lexchatbot-dev``` and ending with ```unauthRole``` and click on it.
+
+5. Click on the ``Add inline policy`` button and add the following json within the json tab, name the policy ```AmplifyLexPolicy``` and save.
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+                "lex:PostText",
+                "lex:PostContent"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+```
+
+6. Next, we need to modify **src/App.js** within our project folder and replace the existing code with the following:
+
+``` javascript
+import React, { Component } from 'react';
+import Amplify, { Interactions } from 'aws-amplify';
+import { ChatBot, AmplifyTheme } from 'aws-amplify-react';
+
+Amplify.configure({
+  aws_project_region: 'us-east-1',
+  Auth: {
+    identityPoolId: 'X',
+    region: 'us-east-1'
+  },
+  bots: {
+    "PersonalBanker": {
+      "name": "PersonalBanker",
+      "alias": "$LATEST",
+      "region": "us-east-1",
+    },
+  }
+
+});
+
+// Imported default theme can be customized by overloading attributes
+const myTheme = {
+  ...AmplifyTheme,
+  sectionHeader: {
+    ...AmplifyTheme.sectionHeader,
+    backgroundColor: '#ff6600'
+  }
+};
+
+class App extends Component {
+
+  handleComplete(err, confirmation) {
+    if (err) {
+      alert('Bot conversation failed')
+      return;
+    }
+
+    alert('Success: ' + JSON.stringify(confirmation, null, 2));
+    return 'Thank you! what would you like to do next?';
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <header className="App-header">
+          <h1 className="App-title">Welcome to ChatBot Demo</h1>
+        </header>
+        <ChatBot
+          title="Banking Bot"
+          theme={myTheme}
+          botName="PersonalBanker"
+          welcomeMessage="Welcome, how can I help you today?"
+          onComplete={this.handleComplete.bind(this)}
+          clearOnComplete={true}
+          conversationModeOn={false}
+        />
+      </div>
+    );
+  }
+}
+
+export default App;
+```
+
+To break this down - the following code add Amplify into your react project:
+
+``` javascript
+import Amplify, { Interactions } from 'aws-amplify';
+import { ChatBot, AmplifyTheme } from 'aws-amplify-react';
+```
+
+The following code configure both the cognito unauthenticated user pool and settings for our Lex Chatbot to be used within our app:
+
+``` javascript
+Amplify.configure({
+  aws_project_region: 'us-east-1',
+  Auth: {
+    identityPoolId: 'X',
+    region: 'us-east-1'
+  },
+  bots: {
+    "PersonalBanker": {
+      "name": "PersonalBanker",
+      "alias": "$LATEST",
+      "region": "us-east-1",
+    },
+  }
+
+});
+```
+
+The following code renders our chatbot component and provide functionality within react:
+
+``` javascript
+<ChatBot
+          title="Banking Bot"
+          theme={myTheme}
+          botName="PersonalBanker"
+          welcomeMessage="Welcome, how can I help you today?"
+          onComplete={this.handleComplete.bind(this)}
+          clearOnComplete={true}
+          conversationModeOn={false}
+        />
+```
+
+The following code handles the event once our chatbot journey is complete:
+
+```javascript
+handleComplete(err, confirmation) {
+    if (err) {
+      alert('Bot conversation failed')
+      return;
+    }
+
+    alert('Success: ' + JSON.stringify(confirmation, null, 2));
+    return 'Thank you! what would you like to do next?';
+  }
+```
+
+And the following code styles the chatbot ui component:
+
+``` javascript
+const myTheme = {
+  ...AmplifyTheme,
+  sectionHeader: {
+    ...AmplifyTheme.sectionHeader,
+    backgroundColor: '#ff6600'
+  }
+};
+```
+
+7. Within the code above replace the ```x``` value for ```identityPoolId``` with the ```identityPoolId``` value that can be found within your projects **aws-exports.js** file. This will allow our Amplify web app to use the Cognito pool we configured for un-authenticated users when calling Amazon Lex.
+
+8. You should now be able to navigate to ```http://localhost:3000/``` within your web browser and see the chatbot window appear. If you provide the bot a sample utterance such as ```how much money is in my account``` you should see a response from your Amazon LEX chatbot!
+
+Congratulations on finishing the Lab :D
+
+
+
