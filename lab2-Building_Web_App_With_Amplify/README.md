@@ -19,15 +19,18 @@ The following frameworks and package managers are needed to be able to complete 
 - NodeJS version 10.x and above (https://nodejs.org/en/download/)
 - npm version 6.x and above (https://www.npmjs.com/get-npm)
 
+* please note that NodeJS will generally install npm alongside so the npm link generally will not be needed.
+
 ## Step 1: Install the Amplify CLI
 
-1. Run the following command within terminal / powershell window:
+1. On your computer, run the following command within terminal / powershell window:
 
 ``` bash
 npm install -g @aws-amplify/cli
 ```
 
 * please note that Amplify CLI will need to be installed globally on your machine hence ``` sudo ``` is needed at the front of the command on mac / linux
+* It may take up to 5 minutes to complete depending on your internet connection
 
 2. Configure Amplify by running the following command:
 
@@ -53,6 +56,9 @@ Specify the username of the new IAM user:
 
 ![IAM config for LEX](images/Picture2.gif)
 
+* please note that the user name that you will see may differ to the screenshot above and should say ```lex-lab-amplify```.
+* if user creation failed within the AWS console, please repeat steps 2-5.
+
 6. Once the user is created, Amplify CLI will ask you to provide the ```accessKeyId``` and the ```secretAccessKey``` to connect Amplify CLI with your newly created IAM user. Profile Name should be ```lex-lab-amplify-profile```.
 
 ``` bash
@@ -76,6 +82,8 @@ cd react-lexchatbot
 ```
 
 This creates a new React app in a directory called react-lexchatbot and then switches us into that new directory.
+
+* It may take up to 5 minutes for ```npx create-react-app react-lexchatbot``` to run successfully dependant on your internet connection.
 
 2. Now that we’re in the root of the project, we can run the app by using the following command:
 
@@ -152,16 +160,16 @@ Source directory path (src)
 Distribution directory path (build)
 ```
 
-9. Leave the cuild command as default by pressing ```enter```.
+9. Leave the build command as default by pressing ```enter```.
 
 ``` bash
-Build command (npm build)
+Build command (npm run-script build)
 ```
 
 10. Leave the start command as default by pressing ```enter```.
 
 ``` bash
-Start command (npm start)
+Start command (npm run-script start)
 ```
 
 11. Type ```Y``` to use an AWS profile and then select ```lex-lab-amplify-profile```.
@@ -214,7 +222,9 @@ amplify push
 
 4. Open the AWS Console navigate to the IAM Service. Within the ```Access Management -> Roles``` section search for a role beginning with ```amplify-lexchatbot-dev``` and ending with ```unauthRole``` and click on it.
 
-5. Click on the ``Add inline policy`` button and add the following json within the json tab, name the policy ```AmplifyLexPolicy``` and save.
+
+
+5. Click on the ``Add inline policy`` button and add the following json within the json tab, name the policy ```AmplifyLexPolicy``` and click ```create policy```.
 
 ```json
 {
@@ -232,6 +242,9 @@ amplify push
     ]
 }
 ```
+![Create Policy 1](images/Picture3.png)
+![Create Policy 2](images/Picture4.png)
+![Create Policy 3](images/Picture5.png)
 
 6. Next, we need to modify **src/App.js** within our project folder and replace the existing code with the following:
 
@@ -367,7 +380,7 @@ const myTheme = {
 };
 ```
 
-7. Within the code above replace the ```x``` value for ```identityPoolId``` with the ```identityPoolId``` value that can be found within your projects **aws-exports.js** file. This will allow our Amplify web app to use the Cognito pool we configured for un-authenticated users when calling Amazon Lex.
+7. Within the code above replace the ```x``` value for ```identityPoolId``` with the ```aws_cognito_identity_pool_id``` value that can be found within your projects **aws-exports.js** file. This will allow our Amplify web app to use the Cognito pool we configured for un-authenticated users when calling Amazon Lex.
 
 8. You should now be able to navigate to ```http://localhost:3000/``` within your web browser and see the chatbot window appear. If you provide the bot a sample utterance such as ```how much money is in my account``` you should see a response from your Amazon LEX chatbot!
 
