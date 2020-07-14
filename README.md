@@ -4,7 +4,7 @@
 
 In this workshop, you will create a mobile application using React Native and AWS Amplify with an embedded Amazon Lex Chatbot.
 
-Whilst it is possible to do Lab 1 without completing Lab 2 a large amount of the second lab is dependent on having completed the first lab.
+Lab 1 is a pre-requisite to be able to complete Labs 2 and/or 3.
 
 ## Prerequisites
 
