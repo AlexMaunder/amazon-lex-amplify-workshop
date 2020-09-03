@@ -3,7 +3,7 @@
 // as a user dials in. 
 const callerNumbers = [
   {
-    PhoneNumber: 'insertNumberHere in +44 format',
+    PhoneNumber: 'insertNumberHere in +1 or +61 format',
     CustomerName: 'Insert Name',
   },
 ];
