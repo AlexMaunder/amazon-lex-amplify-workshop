@@ -1,5 +1,3 @@
-**Last Updated:** April 2019
-
 # Creating your first call center using Amazon Connect and configuring LEX
 
 ## Overview
@@ -28,7 +26,7 @@ Amazon Connect is a cloud-based contact center solution which makes it easy to s
 13. Your browser will pop up a warning to ask you show notifications - this is to allow the Connect Application to notify you when a call is coming in. Click allow on the pop up.
 ![Create your Connect Instance](images/Picture01b.png)
 
-14. At this point your Call Center is setup but you don't have any numbers so you need to 'Claim your first number' - For this lab chose a **UK Direct Dial Number** and click 'Next'.
+14. At this point your Call Center is setup but you don't have any numbers so you need to 'Claim your first number' - For this lab chose a **USA Direct Dial Number** and click 'Next'.
 15.  This is the first number for your call center - you now can call the number and go through the default first call example that is part of Amazon Connect by ringing the number that is allocated to you or click 'Skip for now'.
 
 # Step 2: Create a simple Contact Flow

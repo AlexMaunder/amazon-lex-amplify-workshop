@@ -212,7 +212,7 @@ amplify add auth
 
 2. Choose ```default configuration``` within the CLI options, followed by ```username``` and ```No, I am done```
 
-3. Within you text editor open ```parameters.json``` found within the ``amplify -> backend -> auth``` subfolder and update the ```allowUnauthenticatedIdentities``` to be ```true``` and save the file.
+3. Within you text editor open ```parameters.json``` found within the ``amplify -> backend -> auth -> amplifyprojectid ``` subfolder and update the ```allowUnauthenticatedIdentities``` to be ```true``` and save the file.
 
 4. Run the following to send the authentication update we made to the Amplify cloud environment:
 
@@ -220,11 +220,9 @@ amplify add auth
 amplify push
 ```
 
-4. Open the AWS Console navigate to the IAM Service. Within the ```Access Management -> Roles``` section search for a role beginning with ```amplify-lexchatbot-dev``` and ending with ```unauthRole``` and click on it.
+5. Open the AWS Console navigate to the IAM Service. Within the ```Access Management -> Roles``` section search for a role beginning with ```amplify-lexchatbot-dev``` and ending with ```unauthRole``` and click on it.
 
-
-
-5. Click on the ``Add inline policy`` button and add the following json within the json tab, name the policy ```AmplifyLexPolicy``` and click ```create policy```.
+6. Click on the ``Add inline policy`` button and add the following json within the json tab, name the policy ```AmplifyLexPolicy``` and click ```create policy```.
 
 ```json
 {
@@ -246,7 +244,7 @@ amplify push
 ![Create Policy 2](images/Picture4.png)
 ![Create Policy 3](images/Picture5.png)
 
-6. Next, we need to modify **src/App.js** within our project folder and replace the existing code with the following:
+7. Next, we need to modify **src/App.js** within our project folder and replace the existing code with the following:
 
 ``` javascript
 import React, { Component } from 'react';
@@ -380,9 +378,9 @@ const myTheme = {
 };
 ```
 
-7. Within the code above replace the ```x``` value for ```identityPoolId``` with the ```aws_cognito_identity_pool_id``` value that can be found within your projects **aws-exports.js** file. This will allow our Amplify web app to use the Cognito pool we configured for un-authenticated users when calling Amazon Lex.
+8. Within the code above replace the ```x``` value for ```identityPoolId``` with the ```aws_cognito_identity_pool_id``` value that can be found within your projects **aws-exports.js** file. This will allow our Amplify web app to use the Cognito pool we configured for un-authenticated users when calling Amazon Lex.
 
-8. You should now be able to navigate to ```http://localhost:3000/``` within your web browser and see the chatbot window appear. If you provide the bot a sample utterance such as ```how much money is in my account``` you should see a response from your Amazon LEX chatbot!
+9. You should now be able to navigate to ```http://localhost:3000/``` within your web browser and see the chatbot window appear. If you provide the bot a sample utterance such as ```how much money is in my account``` you should see a response from your Amazon LEX chatbot!
 
 Congratulations on finishing the Lab :D
 
