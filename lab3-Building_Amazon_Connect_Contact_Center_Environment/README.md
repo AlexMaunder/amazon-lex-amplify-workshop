@@ -35,11 +35,9 @@ Amazon Connect is based around creating contact flows, these are highly customis
 
 1. When you create a new Connect environment you are presented with a "default workflow" which you can find by clicking on the 'Routing' option then 'Contact Flows' 
 ![ContactFlows](images/Picture02.png)
-
 and then looking at 'Sample inbound flow (first call experience)'. There is a LOT going on in this flow so we are going to create our own 'Simple flow'.
 
-
-3. We are going to import a pre made 'Simple contact flow'. Download the following file [Simple Workflow](https://github.com/MattJColes/amazon-lex-amplify-workshop/blob/master/lab3-Building_Amazon_Connect_Contact_Center_Environment/Simple_Workflow).
+3. We are going to import a pre made 'Simple contact flow'. Download the following file [Simple Workflow](https://github.com/MattJColes/amazon-lex-amplify-workshop/blob/master/lab3-Building_Amazon_Connect_Contact_Center_Environment/Simple_Workflow.json).
 4.  Head back to the 'Contact Flows' section listed above and in the top right click on 'Create contact flow'.
 5. In the top right click on the down arrow next to the "Save" button and click Import Flow (beta).
 ![ContactFlows](images/Picture03.png)
